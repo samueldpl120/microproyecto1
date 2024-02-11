@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juego Iniciado</title>
+    <link rel="stylesheet" href="styles_juego.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bingo</h1>
+      <div class="turnos">
+        <p>Turnos: <span id="turnos"></span></p>
+      </div>
+      <h2><span id="jugador"></span></h2>
+      <div id="carton" class="carton">
+        
+      </div>
+      <div class="botones-nav">
+        <button id="anterior" class="boton-nav" onclick="anterior()"><-</button>
+        <button id="siguiente" class="boton-nav" onclick="siguiente()">-></button>
+      </div>
+      <div class="controles">
+        <button id="sacar-numero" class="boton">Sacar Número</button>
+        <button id="salir" class="boton-salir" onclick="salir()">Salir de la Partida</button>
+      </div>
+    </div>
+    <script src="functions.js"></script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Datos</title>
+    <link rel="stylesheet" href="styles_form.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Datos para Empezar la partida</h1>
+      <form id="form">
+        <div class="form-group">
+          <label>Nombre del Jugador 1:</label>
+          <input type="text" id="jugador1" name="jugador1" required/>
+        </div>
+        <div class="form-group">
+          <label>Nombre del Jugador 2:</label>
+          <input type="text" id="jugador2" name="jugador2" required/>
+        </div>
+        <div class="form-group">
+          <label>Nombre del Jugador 3:</label>
+          <input type="text" id="jugador3" name="jugador3" required/>
+        </div>
+        <div class="form-group">
+          <label>Nombre del Jugador 4:</label>
+          <input type="text" id="jugador4" name="jugador4" required/>
+        </div>
+        <div class="form-group">
+          <label>Tamaño del Cartón:</label>
+          <input type="number" id="tamano" name="tamano" min="3" max="5" required/>
+        </div>
+        <button type="submit">Empezar</button>
+      </form>
+    </div>
+    <script src="form.js"></script>
+  </body>
+</html>
