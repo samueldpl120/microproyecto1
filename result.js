@@ -25,11 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.getElementById("btnListo").addEventListener("click", function () {
-  alert("Proceso completado con éxito!");
-  window.location.href = "index.html";
-});
-
 function guardar() {
   let maxPuntos = 0;
   let jugadorConMasPuntos = null;
@@ -59,4 +54,7 @@ function guardar() {
     );
     localStorage.setItem(jugadorConMasPuntos, (puntosActuales + 1).toString());
   }
+  
+  sessionStorage.clear();
+  window.location.href = "index.html";
 }

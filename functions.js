@@ -67,7 +67,6 @@ function siguiente() {
 
 function Actual() {
   let jugador = jugadores[indexJugador];
-  elementact = JSON.parse(elementoActual);
 
   document.getElementById("jugador").textContent = jugador.nombre;
   ModificarMatriz(jugador.matriz);
@@ -92,22 +91,26 @@ function salir() {
 }
 
 function mostrarNumero() {
-  if(turno<10){
-    var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
-    console.log(numeroAleatorio);
-    if (!numerosObtenidos.includes(numeroAleatorio)) {
-      numerosObtenidos.push(numeroAleatorio);
-      let numero = document.getElementById("numero");
-      numero.textContent = numeroAleatorio;
-    } else {
-      while (numerosObtenidos.includes(numeroAleatorio)) {
-        var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
+  if (!verificarCartonLleno()) {
+    if (turno < 25) {
+      var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
+      console.log(numeroAleatorio);
+      if (!numerosObtenidos.includes(numeroAleatorio)) {
+        numerosObtenidos.push(numeroAleatorio);
+        let numero = document.getElementById("numero");
+        numero.textContent = numeroAleatorio;
+      } else {
+        while (numerosObtenidos.includes(numeroAleatorio)) {
+          var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
+        }
+        numerosObtenidos.push(numeroAleatorio);
+        let numero = document.getElementById("numero");
+        numero.textContent = numeroAleatorio;
       }
-      numerosObtenidos.push(numeroAleatorio);
-      let numero = document.getElementById("numero");
-      numero.textContent = numeroAleatorio;
+      document.getElementById("popUp").style.display = "block";
+    } else {
+      window.location.href = "result.html";
     }
-    document.getElementById("popUp").style.display = "block";
   }else{
     window.location.href = "result.html";
   }
@@ -115,6 +118,7 @@ function mostrarNumero() {
 
 function cerrarPopUp() {
   puntos();
+  Actual();
   document.getElementById("popUp").style.display = "none";
   turno = turno + 1;
   var idturno = document.getElementById("turnos");
@@ -169,7 +173,7 @@ function puntos() {
     var puntoColumna = columnas(jugador.matriz, numerosObtenidos);
     var puntoDiagonal = diagonales(jugador.matriz, numerosObtenidos);
     var puntoCartoLleno = 0;
-    if(CartonLleno(jugador.matriz, numerosObtenidos)){
+    if (CartonLleno(jugador.matriz, numerosObtenidos)) {
       puntoCartoLleno = 5;
     }
     jugador.puntos = puntoFila + puntoColumna + puntoDiagonal + puntoCartoLleno;
@@ -177,3 +181,11 @@ function puntos() {
   });
 }
 
+function verificarCartonLleno() {
+  jugadores.forEach((jugador) => {
+    if (CartonLleno(jugador.matriz, numerosObtenidos)) {
+      return true;
+    }
+  });
+  return false;
+}
