@@ -1,0 +1,51 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #e6ffe6;
+  box-shadow: 0 0 10px #3c763d;
+}
+
+table th, table td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #4caf50;
+}
+
+table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+table tr:nth-child(odd) {
+  background-color: #ccffcc;
+}
+
+table tr:hover {
+  background-color: #b2ffb2;
+}
+
+.boton-contenedor {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#btnListo {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#btnListo:hover {
+  background-color: #367c39;
+}

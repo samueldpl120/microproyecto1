@@ -14,15 +14,12 @@ var idturno = document.getElementById("turnos");
 idturno.textContent = turno;
 
 document.addEventListener("DOMContentLoaded", function () {
-
   let jugador1 = JSON.parse(sessionStorage.getItem("jugador1"));
-  console.log(jugador1);
 
   var nombreJugador = document.getElementById("jugador");
   nombreJugador.textContent = jugador1.nombre;
 
   let matriz = jugador1.matriz;
-  console.log(matriz);
 
   imprimirMatriz(matriz);
 });
@@ -95,24 +92,29 @@ function salir() {
 }
 
 function mostrarNumero() {
-  var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
-  console.log(numeroAleatorio);
-  if (!numerosObtenidos.includes(numeroAleatorio)) {
-    numerosObtenidos.push(numeroAleatorio);
-    let numero = document.getElementById("numero");
-    numero.textContent = numeroAleatorio;
-  } else {
-    while (numerosObtenidos.includes(numeroAleatorio)) {
-      var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
+  if(turno<10){
+    var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
+    console.log(numeroAleatorio);
+    if (!numerosObtenidos.includes(numeroAleatorio)) {
+      numerosObtenidos.push(numeroAleatorio);
+      let numero = document.getElementById("numero");
+      numero.textContent = numeroAleatorio;
+    } else {
+      while (numerosObtenidos.includes(numeroAleatorio)) {
+        var numeroAleatorio = Math.floor(Math.random() * 50) + 1;
+      }
+      numerosObtenidos.push(numeroAleatorio);
+      let numero = document.getElementById("numero");
+      numero.textContent = numeroAleatorio;
     }
-    numerosObtenidos.push(numeroAleatorio);
-    let numero = document.getElementById("numero");
-    numero.textContent = numeroAleatorio;
+    document.getElementById("popUp").style.display = "block";
+  }else{
+    window.location.href = "result.html";
   }
-  document.getElementById("popUp").style.display = "block";
 }
 
 function cerrarPopUp() {
+  puntos();
   document.getElementById("popUp").style.display = "none";
   turno = turno + 1;
   var idturno = document.getElementById("turnos");
@@ -122,8 +124,8 @@ function cerrarPopUp() {
 function filas(matriz, arreglo) {
   var filasCompletas = 0;
 
-  matriz.forEach(function(fila) {
-    var filaEnArreglo = fila.every(function(elemento) {
+  matriz.forEach(function (fila) {
+    var filaEnArreglo = fila.every(function (elemento) {
       return arreglo.includes(elemento);
     });
 
@@ -137,14 +139,20 @@ function filas(matriz, arreglo) {
 
 function columnas(matriz, arreglo) {
   return matriz[0].reduce((acum, _, columnIndex) => {
-    const columnaCompleta = matriz.every(row => arreglo.includes(row[columnIndex]));
+    const columnaCompleta = matriz.every((row) =>
+      arreglo.includes(row[columnIndex])
+    );
     return acum + (columnaCompleta ? 1 : 0);
   }, 0);
 }
 
 function diagonales(matriz, arreglo) {
-  const diagonalPrincipalContenida = matriz.every((row, i) => arreglo.includes(row[i]));
-  const diagonalSecundariaContenida = matriz.every((row, i) => arreglo.includes(row[matriz.length - 1 - i]));
+  const diagonalPrincipalContenida = matriz.every((row, i) =>
+    arreglo.includes(row[i])
+  );
+  const diagonalSecundariaContenida = matriz.every((row, i) =>
+    arreglo.includes(row[matriz.length - 1 - i])
+  );
   let suma = 0;
   if (diagonalPrincipalContenida) suma += 2;
   if (diagonalSecundariaContenida) suma += 2;
@@ -152,5 +160,20 @@ function diagonales(matriz, arreglo) {
 }
 
 function CartonLleno(matriz, arreglo) {
-  return matriz.flat().every(numero => arreglo.includes(numero));
+  return matriz.flat().every((numero) => arreglo.includes(numero));
 }
+
+function puntos() {
+  jugadores.forEach((jugador, index) => {
+    var puntoFila = filas(jugador.matriz, numerosObtenidos);
+    var puntoColumna = columnas(jugador.matriz, numerosObtenidos);
+    var puntoDiagonal = diagonales(jugador.matriz, numerosObtenidos);
+    var puntoCartoLleno = 0;
+    if(CartonLleno(jugador.matriz, numerosObtenidos)){
+      puntoCartoLleno = 5;
+    }
+    jugador.puntos = puntoFila + puntoColumna + puntoDiagonal + puntoCartoLleno;
+    sessionStorage.setItem(`jugador${index + 1}`, JSON.stringify(jugador));
+  });
+}
+
