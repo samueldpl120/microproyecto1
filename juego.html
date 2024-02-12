@@ -21,9 +21,13 @@
         <button id="siguiente" class="boton-nav" onclick="siguiente()">-></button>
       </div>
       <div class="controles">
-        <button id="sacar-numero" class="boton">Sacar Número</button>
+        <button id="sacar-numero" class="boton" onclick="mostrarNumero()">Sacar Número</button>
         <button id="salir" class="boton-salir" onclick="salir()">Salir de la Partida</button>
       </div>
+    </div>
+    <div id="popUp" class="popup">
+      <p>Número: <span id="numero"></span></p>
+      <button onclick="cerrarPopUp()">Listo</button>
     </div>
     <script src="functions.js"></script>
   </body>
